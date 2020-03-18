@@ -151,3 +151,20 @@ kGCN also provides more features like SYBIL atom types, gasteiger charge, and el
 - 1 dimension for GetIsAromatic()
 - 5 dimension for GetTotalNumHs()
 
+
+# Analysis of visualization result
+Here we explain the method of analyzing the visualization results using MOE.
+```
+cd ../analysis
+```
+
+MOE: https://www.molsis.co.jp/lifescience/moe/protein/
+Prepare PDB files of the complex crystal structure to be investigated, analyze it by MOE, and calculate PLIF (protein ligand interaction fingerprint). We treat sites where PLIF was calculated as the compound-protein interaction sites.
+Create a reference txt file that associates the uniprot id with the id of the result file, and the result file is analyzed together with the visualization result in kgcn.
+Format the result file of MOE and kgcn and check the correspondence between PLIF and IGs score.
+```
+python IG_analysis.py > <kgcn result txt file>
+perl extract_MOE.pl -f <MOE txt file> -d <index name> > <MOE result txt file>
+perl uniprot_method.pl -m <MOE result txt file> -g <kgcn result txt file> -f <ID list txt file> -t <active or all> -i <index of output file>
+```
+
